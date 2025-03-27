@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace BancoPOO
 {
-    internal class ContaCorrente
+    public class ContaCorrente : ContaBancaria
     {
-        public int taxar() 
+        public ContaCorrente(int numeroConta, string Titular, double saldoInicial) : base(numeroConta, Titular, saldoInicial)
         {
-            return 0; 
+
         }
     }
 }

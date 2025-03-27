@@ -1,38 +1,83 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BancoPOO
+﻿namespace BancoPOO
 {
     public class ContaBancaria
     {
-        private string _Titular { set; get; }
-        private int _NumeroConta {set; get; }
-        private double _Saldo { set; get; }
-        
-        public ContaBancaria(int numeroConta, string titular, double saldo)
+        private string _titular;
+        private int _numero;
+        private double _saldo;
+        protected double _taxaSaque;
+
+        public int Numero
         {
-            _NumeroConta = numeroConta;
-            _Titular = titular;
-            _Saldo = saldo;
+            get { return _numero; }
+            set { _numero = value; }
+        }
+
+        public string Titular
+        {
+            get { return _titular; }
+            set { _titular = value; }
+        }
+        public double Saldo
+        {
+            get { return _saldo; }
+            set { _saldo = value; }
+        }
+        protected double Taxasaque 
+        {
+            get { return _taxaSaque; }
+            set { _taxaSaque = value; }
+        }
+
+        public ContaBancaria(int numeroConta, string Titular, double saldoInicial)
+        {
+            _numero = numeroConta;
+            _titular = Titular;
+            _saldo = saldoInicial;
         }
         public double Sacar(double valor)
         {
-      
-            // ExibirSaldo(): exibe o saldo atual.
-            Console.WriteLine($"Saldo {_Saldo}");
-            //Criar duas classes filhas que herdam de ContaBancaria e possuem regras
-            return _Saldo;
+            if (valor> 0 && valor < Saldo)
+            {
+                Saldo -= valor;
+                Console.WriteLine($"saque de {valor} realizado.");
+            }
+            else
+            {
+                Console.WriteLine("saque não autorizado");
+            }
+            return Saldo;
         }
-        public double Depositar() 
+        public double Depositar(double valor)
         {
-            return 0; 
-        } 
-       
+            if (valor > 0)
+            {  
+                _saldo += valor;
+                Console.WriteLine($"Deposito de R${valor} realizadado com sucesso!");
+            }
+            else
+            {
+                Console.WriteLine("valor de déposito invalido");
+            }
+            return Saldo;
+        }
+        public void MostrarSaldo() 
+        {
+            Console.WriteLine("=========================================\n");
+
+            Console.WriteLine($"tudo bem {Titular}? seu saldo é {Saldo}\n");
+
+            Console.WriteLine("==============================================\n");
+
+            Console.WriteLine("ENTER PARA VOLTAR AO MENU");
+            Console.ReadLine();
+            Console.Clear();
+
+        }
+
+
+
+
     }
-    
+
 }
