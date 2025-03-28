@@ -5,10 +5,30 @@ class Program
     static void Main(string[] args)
     {
         int op = -1;
-        ContaBancaria cc = new ContaBancaria(1234, "João", 200);
+        Console.WriteLine("escolha o tipo da conta ");
+        Console.WriteLine("1 - conta corrente");
+        Console.WriteLine("2 - conta poupança");
+        int tipoConta = int.Parse(Console.ReadLine());
+        Console.Clear();
+        Console.WriteLine("pressione ENTER");
+        Console.ReadLine();
 
-        ContaBancaria cp = new ContaBancaria(8546, "Maria", 300);
-
+        ContaBancaria contaAtual;
+        if (tipoConta == 1)
+        {
+            contaAtual = new ContaCorrente(1234, "João", 200);
+            Console.WriteLine("Conta Corrente criada.");
+        }
+        else if (tipoConta == 2)
+        {
+            contaAtual = new ContaPoupança(8546, "Maria", 300);
+            Console.WriteLine("Conta Poupança criada.");
+        }
+        else
+        {
+            Console.WriteLine("Opção inválida. Programa encerrado.");
+            return;
+        }
 
         #region MENU DO BANCO
         while (op != 0)
@@ -29,9 +49,9 @@ class Program
                 switch (op)
                 {
                     case 1:
-                        Console.WriteLine("digite o valor para depositar:");
+                        Console.WriteLine("digite o valor para sacar:");
                         double valorSaque = double.Parse(Console.ReadLine());
-                        double saldoposSaque = cc.Sacar(valorSaque);
+                        double saldoposSaque = contaAtual.Sacar(valorSaque);
                         Console.WriteLine($"seu saldo atual é {saldoposSaque}");
 
                         Console.WriteLine($"pressione ENTER");
@@ -49,7 +69,7 @@ class Program
 
                         Console.WriteLine("digite um valor para depositar");
                         double valorDepositado = double.Parse(Console.ReadLine());
-                        double saldoAtualizado = cc.Depositar(valorDepositado);
+                        double saldoAtualizado = contaAtual.Depositar(valorDepositado);
 
                         Console.WriteLine($"pressione ENTER");
                         Console.ReadLine();
@@ -61,7 +81,7 @@ class Program
 
                         break;
                     case 3:
-                        cc.MostrarSaldo();
+                        contaAtual.MostrarSaldo();
                         break;
                     case 0:
                         Console.WriteLine("saindo");

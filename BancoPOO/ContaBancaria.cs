@@ -35,7 +35,7 @@
             _titular = Titular;
             _saldo = saldoInicial;
         }
-        public double Sacar(double valor)
+        public virtual double Sacar(double valor)
         {
             if (valor> 0 && valor < Saldo)
             {
@@ -48,7 +48,7 @@
             }
             return Saldo;
         }
-        public double Depositar(double valor)
+        public virtual double Depositar(double valor)
         {
             if (valor > 0)
             {  
